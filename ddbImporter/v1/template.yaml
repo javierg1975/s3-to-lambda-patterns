@@ -5,7 +5,7 @@ Description: patterns-ddb-importer-v1
 Parameters:
   InputBucketName:
     Type: String
-    Default: 'midweek-messages'
+    Default: 'midweek-messages' -- S3 bucket name
 
 Resources:
   InputS3Bucket:
@@ -13,7 +13,7 @@ Resources:
     Properties:
       BucketName: !Ref InputBucketName
 
-  DDBtable:
+  DDBtable:                      -- DynamoDB table, created dynamically
     Type: AWS::DynamoDB::Table
     Properties:
       AttributeDefinitions:
@@ -24,7 +24,7 @@ Resources:
         KeyType: HASH
       BillingMode: PAY_PER_REQUEST
 
-  ImportFunction:
+  ImportFunction:                        -- Lambda handler
     Type: AWS::Serverless::Function 
     Properties:
       CodeUri: importFunction/
@@ -41,7 +41,7 @@ Resources:
             TableName: !Ref DDBtable        
         - S3CrudPolicy:
             BucketName: !Ref InputBucketName
-      Events:
+      Events:                                 -- Trigger event
         FileUpload:
           Type: S3
           Properties:
