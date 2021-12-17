@@ -5,7 +5,7 @@ Description: patterns-ddb-importer-v1
 Parameters:
   InputBucketName:
     Type: String
-    Default: 'patterns-ddb-importer-v1'
+    Default: 'midweek-messages'
 
 Resources:
   InputS3Bucket:
